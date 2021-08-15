@@ -2,7 +2,7 @@ from flask import Flask
 from flask_frozen import Freezer
 
 class Vema(Flask):
-    def __init__(self, domain="https://angel.es"):
+    def __init__(self, domain="https://vema.es"):
         super().__init__(__name__, template_folder="../../static");
 
         self.config["DOMAIN"] = domain;
