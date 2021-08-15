@@ -2,14 +2,14 @@ from setuptools import setup
 
 setup(
     name="vema",
-    version="0.1",
-    description="Vema is a simple CMS.",
+    version="0.1.1",
+    description="Vema is a solution for developing static web pages, from Python + Flask, which has the basic tools and already configured to focus on the design of the pages.",
     license="MIT",
     author="Epifanio Suárez Martínez",
     author_email="episuarez@pm.es",
-    url="https://episuarez.dev",
+    url="https://github.com/episuarez/vema",
     packages=["vema"],
-    install_requires=["Flask", "Frozen-Flask", "argparse", "click"],
+    install_requires=["Flask", "Frozen-Flask", "argparse"],
     scripts=[],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
