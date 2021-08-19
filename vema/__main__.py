@@ -3,9 +3,10 @@ import os
 import re
 
 from . import Vema
-from .src import routers
+from .src import cli
 
 parser = argparse.ArgumentParser(description="Vema manager");
+parser.add_argument("-generate", action="store_true", default=False, help="It generates the directory and the minimum files to be able to work.");
 parser.add_argument("-dev", action="store_true", default=False, help="Launch web server. [debug mode]");
 parser.add_argument("-start", action="store_true", default=False, help="Launch web server.");
 parser.add_argument("-build", action="store", dest="domain", help="Build static pages.");
@@ -23,8 +24,12 @@ if args.dev:
     app = Vema();
     app.run(debug=True);
 
+if args.generate:
+    cli.generate_structure();
+    print("The minimum structure has been generated");
+
 if args.createRouters:
-    routers.generate_routers();
+    cli.generate_routers();
     print("Routes have been generated.");
 
 if args.domain != None:
@@ -33,7 +38,7 @@ if args.domain != None:
         print("Building the static pages...");
         
         if os.path.exists("routers.py"):
-            routers.generate_routers()
+            cli.generate_routers()
         app.compile();
 
         print("Static pages have already been generated.");
@@ -42,34 +47,22 @@ if args.domain != None:
 
 if args.namePage != None:
     if len(args.namePage) > 2:
-        if not os.path.exists("static/pages"):
-            os.mkdir("static/pages");
-        with open(f"static/pages/{args.namePage}", "w", encoding="UTF-8") as file:
-            text = """<!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Title</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="">
-            <meta name="author" content="">
-        </head>
-        <body>
-            <h1>This is a test page</h1>
-    </body>
-    </html>""";
-            file.write(text);
+        if args.namePage.endswith(".html"):
+            cli.createPage(args.namePage);
+            print("The correct page has been created.");
+        elif args.namePage.endswith(".md"):
+            cli.createPage(args.namePage, ".md");
+            print("The correct page has been created.");
+        else:
+            print("The extension is not correct");
 
 if args.namePost != None:
     if len(args.namePost) > 2:
-        if not os.path.exists("static/blog"):
-            os.mkdir("static/blog");
-        with open(f"static/blog/{args.namePost}", "w", encoding="UTF-8") as file:
-            text = """title:This is a test
-description:This is a test description
-date:15/08/2021
-
-# This is a test
-
-This is a test description""";
-            file.write(text);
+        if args.namePost.endswith(".html"):
+            cli.createPost(args.namePage);
+            print("The correct page has been created.");
+        elif args.namePost.endswith(".md"):
+            cli.createPost(args.namePost, ".md");
+            print("The correct page has been created.");
+        else:
+            print("The extension is not correct");
