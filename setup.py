@@ -8,9 +8,10 @@ setup(
     author="Epifanio Suárez Martínez",
     author_email="episuarez@pm.es",
     url="https://github.com/episuarez/vema",
-    packages=find_packages(include=['vema', 'vema.*']),
+    packages=["vema", "vema/src", "vema/src/exceptions"],
     install_requires=["Flask", "Frozen-Flask", "argparse"],
-    scripts=[],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'License :: OSI Approved :: MIT License',
