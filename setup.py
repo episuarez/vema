@@ -1,14 +1,14 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="vema",
-    version="0.1.1",
+    version="0.1.2",
     description="Vema is a solution for developing static web pages, from Python + Flask, which has the basic tools and already configured to focus on the design of the pages.",
     license="MIT",
     author="Epifanio Suárez Martínez",
     author_email="episuarez@pm.es",
     url="https://github.com/episuarez/vema",
-    packages=["vema"],
+    packages=find_packages(include=['vema', 'vema.*']),
     install_requires=["Flask", "Frozen-Flask", "argparse"],
     scripts=[],
     classifiers=[
